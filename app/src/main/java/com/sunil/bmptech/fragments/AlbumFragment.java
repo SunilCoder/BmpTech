@@ -2,13 +2,21 @@ package com.sunil.bmptech.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sunil.bmptech.R;
+import com.sunil.bmptech.model.Album;
+import com.sunil.bmptech.viewModel.AlbumViewModal;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +33,7 @@ public class AlbumFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private AlbumViewModal albumViewModal;
 
     public AlbumFragment() {
         // Required empty public constructor
@@ -62,5 +71,17 @@ public class AlbumFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_album, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        albumViewModal = new ViewModelProvider(this).get(AlbumViewModal.class);
+        albumViewModal.getAlbum().observe(getViewLifecycleOwner(), new Observer<List<Album>>() {
+            @Override
+            public void onChanged(List<Album> albums) {
+                
+            }
+        });
     }
 }
