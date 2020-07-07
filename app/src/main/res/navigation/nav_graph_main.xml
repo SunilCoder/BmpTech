@@ -17,5 +17,14 @@
         android:id="@+id/albumFragment"
         android:name="com.sunil.bmptech.fragments.AlbumFragment"
         android:label="fragment_album"
-        tools:layout="@layout/fragment_album" />
+        tools:layout="@layout/fragment_album" >
+        <action
+            android:id="@+id/action_albumFragment_to_photoDetailedFragment"
+            app:destination="@id/photoDetailedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailedFragment"
+        android:name="com.sunil.bmptech.fragments.PhotoDetailedFragment"
+        android:label="fragment_photo_detailed"
+        tools:layout="@layout/fragment_photo_detailed" />
 </navigation>

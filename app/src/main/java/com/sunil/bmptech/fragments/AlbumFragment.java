@@ -144,7 +144,7 @@ public class AlbumFragment extends Fragment {
         @Override
         public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             UserAlbumListBinding userAlbumListBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.user_album_list, parent, false);
-            return new AlbumAdapter.AlbumViewHolder(userAlbumListBinding);
+            return new AlbumAdapter.AlbumViewHolder(userAlbumListBinding.getRoot());
 
         }
 
@@ -167,9 +167,18 @@ public class AlbumFragment extends Fragment {
         class AlbumViewHolder extends RecyclerView.ViewHolder {
             private UserAlbumListBinding userAlbumListBinding;
 
-            public AlbumViewHolder(@NonNull UserAlbumListBinding itemView) {
-                super(itemView.getRoot());
-                this.userAlbumListBinding = itemView;
+            public AlbumViewHolder(@NonNull View itemView) {
+                super(itemView);
+                userAlbumListBinding = DataBindingUtil.getBinding(itemView);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Album album = userAlbumListBinding.getAlbum();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Album",album);
+                        Navigation.findNavController(view).navigate(R.id.photoDetailedFragment,bundle);
+                    }
+                });
             }
         }
     }

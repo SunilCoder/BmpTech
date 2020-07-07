@@ -12,7 +12,7 @@ public class Album implements Serializable {
     private int  albumId;
     private int id;
     private String title;
-    private String Url;
+    private String url;
     private String thumbnailUrl;
 
     public int getAlbumId() {
@@ -40,11 +40,11 @@ public class Album implements Serializable {
     }
 
     public String getUrl() {
-        return Url;
+        return url;
     }
 
     public void setUrl(String url) {
-        Url = url;
+        url = url;
     }
 
     public String getThumbnailUrl() {
@@ -58,5 +58,10 @@ public class Album implements Serializable {
     @BindingAdapter({ "thumbnailUrl" })
     public static void loadImage(ImageView imageView, String imageURL) {
         Picasso.get().load(imageURL).into(imageView);
+    }
+
+    @BindingAdapter({"url"})
+    public static  void loadUrlImage(ImageView bigImage,String Url){
+        Picasso.get().load(Url).into(bigImage);
     }
 }
