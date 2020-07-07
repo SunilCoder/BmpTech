@@ -1,5 +1,7 @@
 package com.sunil.bmptech.fragments;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -13,6 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sunil.bmptech.R;
+import com.sunil.bmptech.model.User;
+import com.sunil.bmptech.viewModel.UsersViewModel;
+
+import java.util.List;
 
 public class UsersFragment extends Fragment {
 
@@ -31,7 +37,14 @@ public class UsersFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(UsersViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+        mViewModel.getUsers().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+
+            }
+        });
+
         // TODO: Use the ViewModel
     }
 
