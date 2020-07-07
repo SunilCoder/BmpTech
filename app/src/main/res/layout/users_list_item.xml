@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="user"
             type="com.sunil.bmptech.model.User" />
     </data>
-    <com.google.android.material.card.MaterialCardView
 
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/blue"
-        android:layout_height="wrap_content">
+        app:cardBackgroundColor="@color/blue">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
 
             <TextView
-                android:id="@+id/textView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:text="@{`ID:  `+user.id}"
                 android:textAlignment="center"
-                android:text="ID: @{user.id}" />
+                android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_marginTop="8dp"
-                android:text="Name: @{user.name}"
-                />
-
+                android:text="@{`NAME:  `+user.name}"
+                android:textColor="@color/white" />
             <TextView
-                android:id="@+id/textView3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
                 android:autoLink="email"
-                android:layout_marginTop="8dp"
-                android:text="Email: @{user.email}" />
+                android:text="@{`EMAIL:  `+user.email}"
+                android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_marginTop="8dp"
-                android:text="Phone: @{user.phone}" />
+                android:autoLink="email"
+                android:text="@{`PHONE:  `+user.phone}"
+                android:textColor="@color/white" />
+
+
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
