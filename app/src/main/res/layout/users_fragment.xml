@@ -16,6 +16,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:title="User Info"/>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -25,6 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/progressBar"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

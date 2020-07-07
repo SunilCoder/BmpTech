@@ -10,16 +10,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.sunil.bmptech.R;
 import com.sunil.bmptech.databinding.UsersFragmentBinding;
 import com.sunil.bmptech.databinding.UsersListItemBinding;
+import com.sunil.bmptech.model.Album;
 import com.sunil.bmptech.model.User;
 import com.sunil.bmptech.viewModel.UsersViewModel;
 
@@ -31,6 +34,7 @@ public class UsersFragment extends Fragment {
     private UsersViewModel mViewModel;
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
+    private ProgressBar progressBar;
 
 
   /*  public static UsersFragment newInstance() {
@@ -48,6 +52,7 @@ public class UsersFragment extends Fragment {
 
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.users_recyler_view);
+        progressBar = view.findViewById(R.id.progressBar);
 
 
     }
@@ -70,6 +75,17 @@ public class UsersFragment extends Fragment {
             }
         });
 
+        mViewModel.progressObserve.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    progressBar.setVisibility(View.VISIBLE);
+                }else {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
 
@@ -84,7 +100,7 @@ public class UsersFragment extends Fragment {
         @Override
         public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             UsersListItemBinding usersListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.users_list_item, parent, false);
-            return new UserViewHolder(usersListItemBinding);
+            return new UserViewHolder(usersListItemBinding.getRoot());
 
         }
 
@@ -108,10 +124,22 @@ public class UsersFragment extends Fragment {
         class UserViewHolder extends RecyclerView.ViewHolder {
             private UsersListItemBinding usersListItemBinding;
 
-            public UserViewHolder(@NonNull UsersListItemBinding itemView) {
-                super(itemView.getRoot());
-                this.usersListItemBinding = itemView;
+            public UserViewHolder(@NonNull View itemView) {
+                super(itemView);
+                usersListItemBinding = DataBindingUtil.bind(itemView);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        User selectedUser = usersListItemBinding.getUser();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("User",selectedUser);
+                        Navigation.findNavController(view).navigate(R.id.albumFragment,bundle);
+                    }
+                });
             }
+
+
+
         }
     }
 

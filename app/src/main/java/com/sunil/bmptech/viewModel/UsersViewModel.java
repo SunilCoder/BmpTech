@@ -20,23 +20,29 @@ import retrofit2.Retrofit;
 public class UsersViewModel extends ViewModel {
 
     private MutableLiveData<List<User>> users;
+    public MutableLiveData<Boolean> progressObserve ;
     private ApiInterface apiInterface;
 
     public LiveData<List<User>> getUsers() {
         if (users == null) {
             users = new MutableLiveData<>();
+            progressObserve= new MutableLiveData<>();
             loadUsers();
         }
         return users;
     }
 
+
+
     private void loadUsers() {
+        progressObserve.setValue(true);
         Retrofit retrofit = RestClient.getClient();
         apiInterface = retrofit.create(ApiInterface.class);
         Call<List<User>> call = apiInterface.getUsers();
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                progressObserve.setValue(false);
                 if (response.isSuccessful()) {
                     Log.d("hero", "onResponse: " + response.body());
                     users.setValue(response.body());
@@ -46,6 +52,7 @@ public class UsersViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
+                progressObserve.setValue(false);
 
             }
         });

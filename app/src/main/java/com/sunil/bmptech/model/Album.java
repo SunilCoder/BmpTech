@@ -1,6 +1,14 @@
 package com.sunil.bmptech.model;
 
-public class Album {
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
+
+public class Album implements Serializable {
     private int  albumId;
     private int id;
     private String title;
@@ -45,5 +53,10 @@ public class Album {
 
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
+    }
+
+    @BindingAdapter({ "thumbnailUrl" })
+    public static void loadImage(ImageView imageView, String imageURL) {
+        Picasso.get().load(imageURL).into(imageView);
     }
 }
