@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 
 import com.sunil.bmptech.MainActivity;
 import com.sunil.bmptech.R;
-import com.sunil.bmptech.databinding.FragmentPhotoDetailedBinding;
 import com.sunil.bmptech.model.Album;
+import com.sunil.bmptech.databinding.FragmentPhotoDetailedBinding;
 
 /**
  * A simple {@link Fragment} subclass.
